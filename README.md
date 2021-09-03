@@ -1,4 +1,5 @@
 # news_app_v2
+# Styling Project
 
 A new Flutter project.
 
