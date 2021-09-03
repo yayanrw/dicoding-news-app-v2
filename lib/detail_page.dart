@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_v2/article.dart';
+import 'package:news_app_v2/widgets/custom_scaffold.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleDetailPage extends StatelessWidget {
@@ -69,13 +70,9 @@ class ArticleWebView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('News App'),
-      ),
+    return CustomScaffold(
       body: WebView(
         initialUrl: url,
-        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }
