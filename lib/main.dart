@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_v2/article.dart';
 import 'package:news_app_v2/detail_page.dart';
+import 'package:news_app_v2/style.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,8 +13,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'News App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: primaryColor,
+        accentColor: secondaryColor,
+        scaffoldBackgroundColor: Colors.white,
+        textTheme: myTextTheme,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: secondaryColor,
+            textStyle: TextStyle(),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(0),
+              ),
+            ),
+          ),
+        ),
+        appBarTheme: AppBarTheme(
+          textTheme: myTextTheme.apply(bodyColor: Colors.black),
+          elevation: 0,
+        ),
       ),
       initialRoute: NewsListPage.routeName,
       routes: {
