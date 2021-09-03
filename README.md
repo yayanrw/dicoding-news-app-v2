@@ -1,5 +1,5 @@
 # news_app_v2
-# Styling Project
+# Add cupertino and refactoring
 
 A new Flutter project.
 
