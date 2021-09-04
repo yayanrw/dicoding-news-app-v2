@@ -5,8 +5,9 @@ import 'package:news_app_v2/ui/article_detail_page.dart';
 
 class CardArticle extends StatelessWidget {
   final Article article;
+  final Function onPressed;
 
-  const CardArticle({required this.article});
+  const CardArticle({required this.article, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
