@@ -1,5 +1,5 @@
 # news_app_v2
-# Add cupertino and refactoring
+# Load from external API
 
 A new Flutter project.
 
