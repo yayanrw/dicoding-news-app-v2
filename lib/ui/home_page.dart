@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app_v2/ui/article_list_page.dart';
-import 'package:news_app_v2/ui/settings.dart';
+import 'package:news_app_v2/ui/settings_page.dart';
 import 'package:news_app_v2/widgets/platform_widget.dart';
 
 class HomePage extends StatefulWidget {
