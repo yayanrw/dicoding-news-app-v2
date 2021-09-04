@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app_v2/data/api/api_service.dart';
 import 'package:news_app_v2/data/model/article.dart';
-import 'package:news_app_v2/common/style.dart';
-import 'package:news_app_v2/ui/article_detail_page.dart';
+import 'package:news_app_v2/widgets/card_article.dart';
 import 'package:news_app_v2/widgets/platform_widget.dart';
 
 class ArticleListPage extends StatefulWidget {
@@ -13,43 +13,38 @@ class ArticleListPage extends StatefulWidget {
 }
 
 class _ArticleListPageState extends State<ArticleListPage> {
-  Widget _buildList(BuildContext context) {
-    return FutureBuilder<String>(
-      future: DefaultAssetBundle.of(context).loadString('assets/articles.json'),
-      builder: (context, snapshot) {
-        final List<Article> articles = parseArticles(snapshot.data);
-        return ListView.builder(
-          itemCount: articles.length,
-          itemBuilder: (context, index) {
-            return _buildArticleItem(context, articles[index]);
-          },
-        );
-      },
-    );
+  Future<ArticlesResult>? _article;
+
+  @override
+  void initState() {
+    super.initState();
+    _article = ApiService().topHeadlines();
   }
 
-  Widget _buildArticleItem(BuildContext context, Article article) {
-    return Material(
-      color: primaryColor,
-      child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        leading: Hero(
-          tag: article.urlToImage,
-          child: Image.network(
-            article.urlToImage,
-            width: 100,
-          ),
-        ),
-        title: Text(
-          article.title,
-        ),
-        subtitle: Text(article.author),
-        onTap: () {
-          Navigator.pushNamed(context, ArticleDetailPage.routeName,
-              arguments: article);
-        },
-      ),
+  Widget _buildList(BuildContext context) {
+    return FutureBuilder(
+      future: _article,
+      builder: (context, AsyncSnapshot<ArticlesResult> snapshot) {
+        var state = snapshot.connectionState;
+        if (state != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: snapshot.data?.articles.length,
+              itemBuilder: (context, index) {
+                var article = snapshot.data?.articles[index];
+                return CardArticle(article: article!);
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          } else {
+            return Text('');
+          }
+        }
+      },
     );
   }
 
