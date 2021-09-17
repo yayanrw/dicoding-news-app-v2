@@ -1,4 +1,5 @@
 # news_app_v2
+# Load from external API & Using Provider
 
 A new Flutter project.
 
